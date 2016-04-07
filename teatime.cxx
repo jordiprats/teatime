@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h> 
 #include <stdio.h> 
+#include <unistd.h>
 
 SDL_Window* gWindow = NULL; 
 SDL_Surface* gScreenSurface = NULL;
@@ -40,8 +41,16 @@ bool init()
 bool loadMedia()
 {
 	bool success = true; 
-	gTeaTime = SDL_LoadBMP( "alarm.bmp" ); 
-
+	
+	if( access( "alarm.bmp", F_OK ) != -1 )
+	{
+		gTeaTime = SDL_LoadBMP( "alarm.bmp" );
+	}
+	else
+	{
+		gTeaTime = SDL_LoadBMP( "/usr/share/teatime/alarm.bmp" );
+	}
+	
 	if( gTeaTime == NULL )
 	{
 		printf( "Unable to load image %s! SDL Error: %s\n", "alarm.bmp", SDL_GetError() ); 
