@@ -1,0 +1,3 @@
+# teatime
+
+Timer for tea
