@@ -1,8 +1,8 @@
-#include <SDL2/SDL.h> 
-#include <stdio.h> 
+#include <SDL2/SDL.h>
+#include <stdio.h>
 #include <unistd.h>
 
-SDL_Window* gWindow = NULL; 
+SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gTeaTime= NULL;
 
@@ -12,21 +12,21 @@ bool quit=false;
 #define SCREEN_WIDTH 574
 #define SCREEN_HEIGHT 800
 
-bool init() 
+bool init()
 {
-	bool success = true; 
+	bool success = true;
 
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
+	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() ); 
+		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
 		success = false;
-	} 
-	else 
+	}
+	else
 	{
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN ); 
+		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ); 
+			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
 			success = false;
 		}
 		else
@@ -34,14 +34,14 @@ bool init()
 			gScreenSurface = SDL_GetWindowSurface( gWindow );
 		}
 	}
-	
+
 	return success;
 }
 
 bool loadMedia()
 {
-	bool success = true; 
-	
+	bool success = true;
+
 	if( access( "alarm.bmp", F_OK ) != -1 )
 	{
 		gTeaTime = SDL_LoadBMP( "alarm.bmp" );
@@ -50,28 +50,48 @@ bool loadMedia()
 	{
 		gTeaTime = SDL_LoadBMP( "/usr/share/teatime/alarm.bmp" );
 	}
-	
+
 	if( gTeaTime == NULL )
 	{
-		printf( "Unable to load image %s! SDL Error: %s\n", "alarm.bmp", SDL_GetError() ); 
+		printf( "Unable to load image %s! SDL Error: %s\n", "alarm.bmp", SDL_GetError() );
 		success = false;
 	}
-	
-	return success; 
+
+	return success;
 }
 
 void close()
 {
-	SDL_FreeSurface( gTeaTime ); 
-	gTeaTime = NULL; 
+	SDL_FreeSurface( gTeaTime );
+	gTeaTime = NULL;
 
-	SDL_DestroyWindow( gWindow ); 
+	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 }
 
 int main(int argc, char* argv[])
 {
-	SDL_Delay( 2000 );
+	int minutes=0;
+
+	if(argc!=2)
+	{
+		printf("usage: teatime <min>\n");
+
+		return 1;
+	}
+
+	minutes=atoi(argv[1]);
+
+	if(minutes<0 or minutes>100)
+	{
+		printf("perturbació a la força: %d minuts sembla incorrecte");
+
+		return 1;
+	}
+
+	minutes*=60000;
+
+	SDL_Delay( minutes );
 
 	if( !init() )
 	{
@@ -87,7 +107,7 @@ int main(int argc, char* argv[])
 		else
 		{
 			SDL_BlitSurface( gTeaTime, NULL, gScreenSurface, NULL );
-			
+
 			SDL_UpdateWindowSurface( gWindow );
 
 			while( !quit )
@@ -108,6 +128,6 @@ int main(int argc, char* argv[])
 	}
 
 	close();
-	
+
 	return 0;
 }
