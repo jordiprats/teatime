@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 
 	if(minutes<0 or minutes>100)
 	{
-		printf("perturbació a la força: %d minuts sembla incorrecte");
+		printf("perturbació a la força: %d minuts sembla incorrecte\n");
 
 		return 1;
 	}
