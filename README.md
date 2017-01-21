@@ -8,7 +8,7 @@ Usage:
 teatime <minutes>
 ```
 
-It will notify you showing the following image that the minutes you have specified have passed
+It will notify showing the following image that the minutes you have specified have passed
 
 ![tea time](https://raw.githubusercontent.com/jordiprats/teatime/master/alarm.bmp "It's tea time!")
 
