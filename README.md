@@ -1,4 +1,5 @@
 # teatime
+![C/C++ CI](https://github.com/jordiprats/teatime/workflows/C/C++%20CI/badge.svg?branch=master)
 
 Timer for tea
 
