@@ -1,5 +1,5 @@
 # teatime
-![C/C++ CI](https://github.com/jordiprats/teatime/workflows/C/C++%20CI/badge.svg?branch=master)
+![C build](https://github.com/jordiprats/teatime/workflows/C%20build/badge.svg?branch=master)
 
 Timer for tea
 
